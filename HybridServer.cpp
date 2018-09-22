@@ -10,6 +10,7 @@ HybridServer::HybridServer(const std::string& address, const std::string& port,
   port_ = stoi(port);
 
   // Initialize an endpoint object on 0.0.0.0:port
+  // Listen all interfaces on specific port
   // Initialize the acceptor with the option SO_REUSEADDR and bind the endpoint
   boost::asio::ip::tcp::endpoint endpoint(boost::asio::ip::address(addr),
       port_);
