@@ -10,18 +10,18 @@ Coded with boost version 1.62 (From version 1.66 io_service class is changed to 
 make
 
 ### SSL Setup
-DHPARAM File - for key exchange (Diffie-Hellman)
+1. DHPARAM File - for key exchange (Diffie-Hellman)
 `openssl dhparam -out dhparam4096.pem 4096`
-Generate a private key and csr for CA
+2. Generate a private key and csr for CA
 `openssl req -new -newkey rsa:4096 -nodes -out ca.csr -keyout ca.key`
-Generate a self-signed certificate for CA
+3. Generate a self-signed certificate for CA
 `openssl x509 -signkey ca.key -in ca.csr -req -days 365 -out ca.crt`
-Generate server private key and certificate request
-`openssl genrsa -out server.key 1024`
-`openssl req -new -key server.key -out server.csr`
-Sign certificate with CA and generate public certificate for server
+4. Generate server private key and certificate request
+```openssl genrsa -out server.key 1024
+openssl req -new -key server.key -out server.csr```
+5. Sign certificate with CA and generate public certificate for server
 `openssl x509 -req -days 365 -in server.csr -out server.crt -CA ca.crt -CAkey ca.key -set_serial 01`
-Make a chain file with CA and server public certificates to use it later in client
+6. Make a chain file with CA and server public certificates to use it later in client
 `cat server.crt ca.crt > ca-chain.cert.pem`
 
 More to learn on:
