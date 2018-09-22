@@ -13,18 +13,18 @@ make
 ### SSL Setup
 1. DHPARAM File - for key exchange (Diffie-Hellman)
 `openssl dhparam -out dhparam4096.pem 4096`
-3. Generate a private key and csr for CA
+2. Generate a private key and csr for CA
 `openssl req -new -newkey rsa:4096 -nodes -out ca.csr -keyout ca.key`
-4. Generate a self-signed certificate for CA
+3. Generate a self-signed certificate for CA
 `openssl x509 -signkey ca.key -in ca.csr -req -days 365 -out ca.crt`
-5. Generate server private key and certificate request
+4. Generate server private key and certificate request
 ```
 openssl genrsa -out server.key 1024
 openssl req -new -key server.key -out server.csr
 ```
-6. Sign certificate with CA and generate public certificate for server
+5. Sign certificate with CA and generate public certificate for server
 `openssl x509 -req -days 365 -in server.csr -out server.crt -CA ca.crt -CAkey ca.key -set_serial 01`
-7. Make a chain file with CA and server public certificates to use it later in client
+6. Make a chain file with CA and server public certificates to use it later in client
   `cat server.crt ca.crt > ca-chain.cert.pem`
 
 More to learn on:
